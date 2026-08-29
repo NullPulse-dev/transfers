@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santander · Welcome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- reset & base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d1326;
+      color: #e8edf5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .serif {
+      font-family: 'Source Serif 4', serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* ----- landing container ----- */
+    .landing {
+      width: 100%;
+      max-width: 1200px;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    /* ----- left side ----- */
+    .hero-content h1 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .hero-content h1 span {
+      color: #ec0000;
+    }
+    .hero-content p {
+      font-size: 17px;
+      color: #94a3b8;
+      line-height: 1.6;
+      max-width: 440px;
+      margin-bottom: 32px;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+    .hero-badges div {
+      text-align: left;
+    }
+    .hero-badges .num {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e8edf5;
+    }
+    .hero-badges .label {
+      font-size: 13px;
+      color: #6a7a9a;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ec0000, #b30000);
+      color: #fff;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 24px rgba(236, 0, 0, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 36px rgba(236, 0, 0, 0.40);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #e8edf5;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 36px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      border-color: rgba(236, 0, 0, 0.3);
+      background: rgba(236, 0, 0, 0.04);
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ----- right side (login card) ----- */
+    .login-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 28px;
+      padding: 40px 36px;
+      max-width: 440px;
+      width: 100%;
+      justify-self: end;
+      transition: all 0.3s ease;
+    }
+    .login-card:hover {
+      border-color: rgba(236, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .login-card h2 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .login-card .sub {
+      font-size: 14px;
+      color: #8a9ab8;
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 4px;
+    }
+    .input-group i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6a7a9a;
+      font-size: 16px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      border-radius: 60px;
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+      color: #e8edf5;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.25s;
+    }
+    .input-group input:focus {
+      border-color: rgba(236, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .input-group input::placeholder {
+      color: #5a6a8a;
+    }
+    .input-group .eye {
+      left: auto;
+      right: 16px;
+      cursor: pointer;
+      color: #6a7a9a;
+    }
+
+    .input-group.has-error input {
+      border-color: #ec0000;
+      background: rgba(236, 0, 0, 0.06);
+    }
+    .input-group.has-error i:not(.eye) {
+      color: #ec0000;
+    }
+
+    .field-error {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      color: #ec0000;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 6px 6px 14px;
+    }
+    .field-error i {
+      font-size: 14px;
+    }
+    .input-group.has-error + .field-error {
+      display: flex;
+    }
+
+    .form-alert {
+      display: none;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(236, 0, 0, 0.06);
+      border: 1px solid rgba(236, 0, 0, 0.10);
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      color: #fb7185;
+    }
+    .form-alert.show {
+      display: flex;
+    }
+    .form-alert i {
+      font-size: 18px;
+      margin-top: 1px;
+    }
+
+    .remember-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #8a9ab8;
+      margin: 18px 0 22px;
+    }
+    .remember-row label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .remember-row a {
+      color: #8a9ab8;
+      transition: color 0.2s;
+    }
+    .remember-row a:hover {
+      color: #ec0000;
+    }
+
+    .btn-login-full {
+      width: 100%;
+      background: linear-gradient(135deg, #ec0000, #b30000);
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(236, 0, 0, 0.20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .btn-login-full:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(236, 0, 0, 0.35);
+    }
+    .btn-login-full:disabled {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      display: none;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .new-user {
+      text-align: center;
+      font-size: 13px;
+      color: #8a9ab8;
+      margin: 16px 0 12px;
+    }
+    .btn-register {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      color: #e8edf5;
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      padding: 14px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-register:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(236, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* ----- brand logo at top of card ----- */
+    .card-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .card-brand .mark {
+      width: 40px;
+      height: 40px;
+      background: #ec0000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+    }
+    .card-brand .name {
+      font-family: 'Source Serif 4', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .card-brand .tag {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      color: #6a7a9a;
+      font-weight: 600;
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ----- responsive ----- */
+    @media (max-width: 1024px) {
+      .landing {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        padding: 32px 20px;
+      }
+      .hero-content p {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-badges {
+        justify-content: center;
+      }
+      .hero-ctas {
+        justify-content: center;
+      }
+      .login-card {
+        justify-self: center;
+        max-width: 420px;
+      }
+    }
+    @media (max-width: 700px) {
+      .hero-content h1 {
+        font-size: 32px;
+      }
+      .hero-badges {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-badges .num {
+        font-size: 22px;
+      }
+      .login-card {
+        padding: 28px 20px;
+      }
+      .btn-primary,
+      .btn-outline {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+    @media (max-width: 380px) {
+      .hero-content h1 {
+        font-size: 26px;
+      }
+      .login-card h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="landing">
+
+    <!-- LEFT: Hero -->
+    <div class="hero-content">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div style="width:48px;height:48px;background:#ec0000;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:#fff;">S</div>
+        <div>
+          <div style="font-family:'Source Serif 4',serif;font-size:24px;font-weight:700;letter-spacing:-0.3px;">Santander</div>
+          <div style="font-size:9px;letter-spacing:2.5px;color:#6a7a9a;font-weight:600;margin-top:1px;">PLC · PRIVATE BANKING</div>
+        </div>
+      </div>
+
+      <h1>Banking that<br /><span>moves with you</span></h1>
+      <p>Smart, secure, and built for the way you live today. Manage your money anytime, anywhere — with total confidence.</p>
+
+      <div class="hero-badges">
+        <div><div class="num">14M+</div><div class="label">UK customers</div></div>
+        <div><div class="num">800+</div><div class="label">Branches</div></div>
+        <div><div class="num">96%</div><div class="label">Customer trust</div></div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="#login"><button class="btn-primary"><i class="fas fa-lock"></i> Log in</button></a>
+        <button class="btn-outline"><i class="fas fa-chevron-circle-right"></i> Open account</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Login Card -->
+    <div class="login-card" id="login">
+      <div class="card-brand">
+        <div class="mark">S</div>
+        <div>
+          <div class="name">Online Banking</div>
+          <span class="tag">SECURE · 24/7</span>
+        </div>
+      </div>
+
+      <div class="form-alert" id="formAlert">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="formAlertText">Please fill in your username and password.</span>
+      </div>
+
+      <div class="input-group" id="usernameGroup">
+        <i class="fas fa-user"></i>
+        <input type="text" id="username" placeholder="Username" autocomplete="username" />
+      </div>
+      <div class="field-error"><i class="fas fa-exclamation-circle"></i> Enter your username.</div>
+
+      <div class="input-group" id="passwordGroup">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+        <i class="fas fa-eye eye" id="eyeIcon" onclick="togglePassword()"></i>
+      </div>
+      <div class="field-error"><i class="fas fa-exclamation-circle"></i> Enter your password.</div>
+
+      <div class="remember-row">
+        <label><input type="checkbox" checked style="width:auto;" /> Remember me</label>
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button class="btn-login-full" id="loginBtn" onclick="login()">
+        <span id="loginBtnText">Log in</span>
+        <span class="spinner" id="loginSpinner"></span>
+      </button>
+
+      <div class="new-user">First time with Santander?</div>
+      <button class="btn-register">Create account</button>
+    </div>
+
+  </div>
+
+  <script>
+    // ----- toggle password visibility -----
+    function togglePassword() {
+      const pw = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        pw.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    function clearErrors() {
+      document.getElementById('usernameGroup').classList.remove('has-error');
+      document.getElementById('passwordGroup').classList.remove('has-error');
+      document.getElementById('formAlert').classList.remove('show');
+    }
+
+    // ----- login function (redirects to Dashboard.html) -----
+    function login() {
+      const usernameEl = document.getElementById('username');
+      const passwordEl = document.getElementById('password');
+      const username = usernameEl.value.trim();
+      const password = passwordEl.value.trim();
+
+      clearErrors();
+      let hasError = false;
+      if (username === '') {
+        document.getElementById('usernameGroup').classList.add('has-error');
+        hasError = true;
+      }
+      if (password === '') {
+        document.getElementById('passwordGroup').classList.add('has-error');
+        hasError = true;
+      }
+
+      if (hasError) {
+        const alertBox = document.getElementById('formAlert');
+        const alertText = document.getElementById('formAlertText');
+        alertText.textContent = (username === '' && password === '')
+          ? 'Please fill in your username and password to continue.'
+          : (username === '' ? 'Please enter your username.' : 'Please enter your password.');
+        alertBox.classList.add('show');
+        return;
+      }
+
+      const btn = document.getElementById('loginBtn');
+      const btnText = document.getElementById('loginBtnText');
+      const spinner = document.getElementById('loginSpinner');
+      btn.disabled = true;
+      btnText.textContent = 'Signing in...';
+      spinner.style.display = 'inline-block';
+
+      setTimeout(() => {
+        window.location.href = 'Dashboard.html';
+      }, 700);
+    }
+
+    // clear error on input
+    document.getElementById('username').addEventListener('input', function() {
+      if (this.value.trim() !== '') document.getElementById('usernameGroup').classList.remove('has-error');
+    });
+    document.getElementById('password').addEventListener('input', function() {
+      if (this.value.trim() !== '') document.getElementById('passwordGroup').classList.remove('has-error');
+    });
+
+    // enter key
+    ['username', 'password'].forEach(id => {
+      document.getElementById(id).addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') login();
+      });
+    });
+  </script>
+
+</body>
+</html>
